@@ -112,6 +112,11 @@ function App() {
           </button>
         </div>
 
+        <label style={{ justifyContent: 'space-around'}}>
+          Font Color:
+          <Color setColor={setColor} />
+        </label>
+
         <div className="row">
           <label className="col">
             Upper Text:
@@ -131,11 +136,6 @@ function App() {
             />
           </label>
         </div>
-
-        <label style={{ justifyContent: 'space-around'}}>
-          Font Color:
-          <Color setColor={setColor} />
-        </label>
 
       </form>
     </div>
