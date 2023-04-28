@@ -83,11 +83,8 @@ function App() {
         canvasContext.fillStyle = color
         canvasContext.strokeStyle = 'black'
         canvasContext.textBaseline = 'top';
-        canvasContext.fillText(upperText, Math.abs(imageWidth / 7), Math.abs(imageHeight / 7))
-        canvasContext.strokeText(upperText, Math.abs(imageWidth / 7), Math.abs(imageHeight / 7))
-
-        canvasContext.fillText(lowerText, Math.abs(imageWidth / 7), Math.abs(imageHeight - (imageHeight / 7)))
-        canvasContext.strokeText(lowerText, Math.abs(imageWidth / 7), Math.abs(imageHeight - (imageHeight / 7)))
+        canvasContext.fillText(upperText, Math.abs(imageWidth / 9), Math.abs(imageHeight / 9))
+        canvasContext.fillText(lowerText, Math.abs(imageWidth / 9), Math.abs(imageHeight - (imageHeight / 4.5)))
       }
     }
   }, [width, height, url, angle, isReversed, upperText, lowerText, color]);
@@ -95,51 +92,74 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-      
-        <p>Meme Generator</p>
+        <h4>Meme Generator</h4>
+      </header>
 
-        <canvas id="canvas" ref={canvasRef} width={width} height={height} />
-
-        <label style={{ display: 'flex', alignItems: 'center' }}>
+      <form>
+        <label>
           Image Source:
           <input onChange={e => setUrl(e.target.value)} value={url} />
         </label>
 
-        <label style={{ display: 'flex', alignItems: 'center' }}>
-          Image Height:
-          <input type="number" onChange={e => setHeight(parseInt(e.target.value))} value={height} />
-        </label>
+        <div  className="row">
+          <label className="col">
+            Height:
+            <input type="number" onChange={e => setHeight(parseInt(e.target.value))} value={height} />
+          </label>
 
-        <label style={{ display: 'flex', alignItems: 'center' }}>
-          Image Width:
-          <input type="number" onChange={e => setWidth(parseInt(e.target.value))} value={width} />
-        </label>
+          <label className="col">
+            Width:
+            <input type="number" onChange={e => setWidth(parseInt(e.target.value))} value={width} />
+          </label>
+        </div>
 
-        <label style={{ display: 'flex', alignItems: 'center' }}>
-          Upper Text:
-          <input onChange={e => setUpperText(e.target.value)} value={upperText} />
-        </label>
+        <canvas id="canvas" ref={canvasRef} width={width} height={height} />
 
-        <label style={{ display: 'flex', alignItems: 'center' }}>
-          Lower Text:
-          <input onChange={e => setLowerText(e.target.value)} value={lowerText} />
-        </label>
+        <div className="buttons">
+          <button
+            type="button" 
+            onClick={() => setAngle((angle - 90) % 360)}
+          >
+              Rotate Image
+            </button>
+          <button
+            type="button" 
+            onClick={() => setIsReversed(!isReversed)}
+          >
+            Reverse Image
+          </button>
+        </div>
 
-        <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', }}>
+        <div className="row">
+          <label className="col">
+            Upper Text:
+            <textarea
+              placeholder="Upper text"
+              onChange={e => setUpperText(e.target.value)}
+              value={upperText}
+            />
+          </label>
+
+          <label className="col">
+            Lower Text:
+            <textarea
+              placeholder="Lower text"
+              onChange={e => setLowerText(e.target.value)}
+              value={lowerText}
+            />
+          </label>
+        </div>
+
+        <label style={{ justifyContent: 'space-around'}}>
           Font Color:
           <Color setColor={setColor} />
         </label>
 
-        <div style={{ display: 'flex' }}>
-          <button onClick={() => setAngle((angle - 90) % 360)}>Rotate Image</button>
-          <button onClick={() => setIsReversed(!isReversed)}>Reverse Image</button>
+        <div className="buttons">
+          <button type="button" onClick={onImgUpload}>Upload</button>
+          <button type="button" onClick={onClear}>Clear</button>
         </div>
-
-        <div style={{ display: 'flex', marginBottom: '311px', }}>
-          <button onClick={onImgUpload}>Upload</button>
-          <button onClick={onClear}>Clear</button>
-        </div>
-      </header>
+      </form>
     </div>
   );
 }

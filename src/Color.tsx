@@ -11,7 +11,7 @@ const ColorPickerButton = (props: ColorPickerButtonProps) => {
 
     return (
         <div>
-            <button onClick={toggleIsOpen}>Pick Color</button>
+            <button type="button" onClick={toggleIsOpen}>Pick Color</button>
             {isOpen ? (
                 <div style={{
                     position: 'absolute',
