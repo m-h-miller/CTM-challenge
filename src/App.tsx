@@ -9,6 +9,8 @@ function App() {
   const [width, setWidth] = React.useState<number>(500);
   const [angle, setAngle] = React.useState<number>(0);
   const [isReversed, setIsReversed] = React.useState<boolean>(false);
+  const [upperText, setUpperText] = React.useState<string>("");
+  const [lowerText, setLowerText] = React.useState<string>("");
 
   const onImgUpload = () => {
     const image = new Image();
@@ -45,8 +47,6 @@ function App() {
 
     const canvas: HTMLCanvasElement | null = canvasRef.current;
     if (canvas) {
-      console.log({ absoluteAngle })
-
       const canvasContext = canvas.getContext("2d");
       canvasContext?.save();
 
@@ -75,8 +75,20 @@ function App() {
 
       canvasContext?.drawImage(image, 0, 0, imageWidth, imageHeight);
       canvasContext?.restore();
+
+      if (canvasContext) {
+        canvasContext.font = 'Bold 40px Arial';
+        canvasContext.fillStyle = "white"
+        canvasContext.strokeStyle = 'black'
+        canvasContext.textBaseline = 'top';
+        canvasContext.fillText(upperText, Math.abs(imageWidth / 7), Math.abs(imageHeight / 7))
+        canvasContext.strokeText(upperText, Math.abs(imageWidth / 7), Math.abs(imageHeight / 7))
+
+        canvasContext.fillText(lowerText, Math.abs(imageWidth / 7), Math.abs(imageHeight - (imageHeight / 7)))
+        canvasContext.strokeText(lowerText, Math.abs(imageWidth / 7), Math.abs(imageHeight - (imageHeight / 7)))
+      }
     }
-  }, [width, height, url, angle, isReversed]);
+  }, [width, height, url, angle, isReversed, upperText, lowerText]);
 
   return (
     <div className="App">
@@ -99,6 +111,16 @@ function App() {
         <label style={{ display: 'flex', alignItems: 'center' }}>
           Image Width:
           <input type="number" onChange={e => setWidth(parseInt(e.target.value))} value={width} />
+        </label>
+
+        <label style={{ display: 'flex', alignItems: 'center' }}>
+          Upper Text:
+          <input onChange={e => setUpperText(e.target.value)} value={upperText} />
+        </label>
+
+        <label style={{ display: 'flex', alignItems: 'center' }}>
+          Lower Text:
+          <input type="number" onChange={e => setLowerText(e.target.value)} value={lowerText} />
         </label>
 
         <div style={{ display: 'flex' }}>
