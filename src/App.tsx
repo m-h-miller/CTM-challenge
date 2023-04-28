@@ -14,23 +14,6 @@ function App() {
   const [lowerText, setLowerText] = React.useState<string>("");
   const [color, setColor] = React.useState<string>("");
 
-  const onImgUpload = () => {
-    const image = new Image();
-    image.src = url;
-
-    const canvas: HTMLCanvasElement | null = canvasRef.current;
-    if (canvas) {
-      const canvasContext = canvas.getContext("2d");
-      
-      const imageWidth: number = width || image.width;
-      const imageHeight: number = height || image.height;
-      
-      canvas.width = imageWidth;
-      canvas.height = imageHeight;
-      canvasContext?.drawImage(image, 0, 0, imageWidth, imageHeight);
-    }
-  }
-
   const onClear = () => {
     const canvas: HTMLCanvasElement | null = canvasRef.current;
     if (canvas) {
@@ -44,7 +27,6 @@ function App() {
 
     const image = new Image();
     image.src = url;
-
     let absoluteAngle = Math.abs(angle);
 
     const canvas: HTMLCanvasElement | null = canvasRef.current;
@@ -155,10 +137,6 @@ function App() {
           <Color setColor={setColor} />
         </label>
 
-        <div className="buttons">
-          <button type="button" onClick={onImgUpload}>Upload</button>
-          <button type="button" onClick={onClear}>Clear</button>
-        </div>
       </form>
     </div>
   );
