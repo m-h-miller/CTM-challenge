@@ -120,7 +120,7 @@ function App() {
 
         <label style={{ display: 'flex', alignItems: 'center' }}>
           Lower Text:
-          <input type="number" onChange={e => setLowerText(e.target.value)} value={lowerText} />
+          <input onChange={e => setLowerText(e.target.value)} value={lowerText} />
         </label>
 
         <div style={{ display: 'flex' }}>
