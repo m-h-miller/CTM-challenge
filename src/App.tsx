@@ -1,4 +1,5 @@
 import React from 'react';
+import Color from './Color';
 import './App.css';
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
   const [isReversed, setIsReversed] = React.useState<boolean>(false);
   const [upperText, setUpperText] = React.useState<string>("");
   const [lowerText, setLowerText] = React.useState<string>("");
+  const [color, setColor] = React.useState<string>("");
 
   const onImgUpload = () => {
     const image = new Image();
@@ -78,7 +80,7 @@ function App() {
 
       if (canvasContext) {
         canvasContext.font = 'Bold 40px Arial';
-        canvasContext.fillStyle = "white"
+        canvasContext.fillStyle = color
         canvasContext.strokeStyle = 'black'
         canvasContext.textBaseline = 'top';
         canvasContext.fillText(upperText, Math.abs(imageWidth / 7), Math.abs(imageHeight / 7))
@@ -88,7 +90,7 @@ function App() {
         canvasContext.strokeText(lowerText, Math.abs(imageWidth / 7), Math.abs(imageHeight - (imageHeight / 7)))
       }
     }
-  }, [width, height, url, angle, isReversed, upperText, lowerText]);
+  }, [width, height, url, angle, isReversed, upperText, lowerText, color]);
 
   return (
     <div className="App">
@@ -123,12 +125,17 @@ function App() {
           <input onChange={e => setLowerText(e.target.value)} value={lowerText} />
         </label>
 
+        <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', }}>
+          Font Color:
+          <Color setColor={setColor} />
+        </label>
+
         <div style={{ display: 'flex' }}>
           <button onClick={() => setAngle((angle - 90) % 360)}>Rotate Image</button>
           <button onClick={() => setIsReversed(!isReversed)}>Reverse Image</button>
         </div>
 
-        <div style={{ display: 'flex' }}>
+        <div style={{ display: 'flex', marginBottom: '311px', }}>
           <button onClick={onImgUpload}>Upload</button>
           <button onClick={onClear}>Clear</button>
         </div>
