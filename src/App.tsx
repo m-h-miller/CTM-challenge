@@ -28,45 +28,47 @@ function App() {
     const image = new Image();
     image.src = url;
     let absoluteAngle = Math.abs(angle);
+    image.onload = () => {
 
-    const canvas: HTMLCanvasElement | null = canvasRef.current;
-    if (canvas) {
-      const canvasContext = canvas.getContext("2d");
-      canvasContext?.save();
-
-      let imageWidth: number = width || image.width;
-      let imageHeight: number = height || image.height;
-
-      canvasContext?.translate(canvas.width , canvas.height );
-      canvasContext?.rotate(absoluteAngle *Math.PI / 180);
-
-      if (absoluteAngle == 90) {
-        imageWidth *= -1
-
-      }
-      if (absoluteAngle == 270) {
-        imageHeight *= -1
-      }
-      if (absoluteAngle == 0) {
-        imageHeight *= -1
-        imageWidth *= -1
-      }
-
-      if (isReversed) {
-        canvasContext?.scale(-1, 1);
-        imageWidth *= -1
-      }
-
-      canvasContext?.drawImage(image, 0, 0, imageWidth, imageHeight);
-      canvasContext?.restore();
-
-      if (canvasContext) {
-        canvasContext.font = 'Bold 40px Arial';
-        canvasContext.fillStyle = color
-        canvasContext.strokeStyle = 'black'
-        canvasContext.textBaseline = 'top';
-        canvasContext.fillText(upperText, Math.abs(imageWidth / 9), Math.abs(imageHeight / 9))
-        canvasContext.fillText(lowerText, Math.abs(imageWidth / 9), Math.abs(imageHeight - (imageHeight / 4.5)))
+      const canvas: HTMLCanvasElement | null = canvasRef.current;
+      if (canvas) {
+        const canvasContext = canvas.getContext("2d");
+        canvasContext?.save();
+  
+        let imageWidth: number = width || image.width;
+        let imageHeight: number = height || image.height;
+  
+        canvasContext?.translate(canvas.width , canvas.height );
+        canvasContext?.rotate(absoluteAngle *Math.PI / 180);
+  
+        if (absoluteAngle === 90) {
+          imageWidth *= -1
+  
+        }
+        if (absoluteAngle === 270) {
+          imageHeight *= -1
+        }
+        if (absoluteAngle === 0) {
+          imageHeight *= -1
+          imageWidth *= -1
+        }
+  
+        if (isReversed) {
+          canvasContext?.scale(-1, 1);
+          imageWidth *= -1
+        }
+  
+        canvasContext?.drawImage(image, 0, 0, imageWidth, imageHeight);
+        canvasContext?.restore();
+  
+        if (canvasContext) {
+          canvasContext.font = 'Bold 40px Arial';
+          canvasContext.fillStyle = color
+          canvasContext.strokeStyle = 'black'
+          canvasContext.textBaseline = 'top';
+          canvasContext.fillText(upperText, Math.abs(imageWidth / 9), Math.abs(imageHeight / 9))
+          canvasContext.fillText(lowerText, Math.abs(imageWidth / 9), Math.abs(imageHeight - (imageHeight / 4.5)))
+        }
       }
     }
   }, [width, height, url, angle, isReversed, upperText, lowerText, color]);
