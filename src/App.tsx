@@ -66,8 +66,9 @@ function App() {
           canvasContext.fillStyle = color
           canvasContext.strokeStyle = 'black'
           canvasContext.textBaseline = 'top';
-          canvasContext.fillText(upperText, Math.abs(imageWidth / 9), Math.abs(imageHeight / 9))
-          canvasContext.fillText(lowerText, Math.abs(imageWidth / 9), Math.abs(imageHeight - (imageHeight / 4.5)))
+          canvasContext.textAlign = 'center'
+          canvasContext.fillText(upperText, Math.abs(imageWidth / 2), Math.abs(imageHeight / 9))
+          canvasContext.fillText(lowerText, Math.abs(imageWidth / 2), Math.abs(imageHeight - (imageHeight / 4.5)))
         }
       }
     }
