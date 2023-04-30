@@ -5,7 +5,7 @@ import './App.css';
 function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const [url, setUrl] = useState<string>("https://media1.popsugar-assets.com/files/thumbor/YX-2J4ndcYxiFDtqpJ0Ed8NkMfM/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2014/08/08/878/n/1922507/9ed5cdef48c5ef69_thumb_temp_image32304521407524949/i/Funny-Cat-GIFs.jpg");
+  const [url, setUrl] = useState<string>("https://th.bing.com/th/id/OIP.Sbtp6DnO5KP7WVNuygzhZwHaFH?w=249&h=180&c=7&r=0&o=5&pid=1.7");
   const [height, setHeight] = useState<number>(500);
   const [width, setWidth] = useState<number>(500);
   const [angle, setAngle] = useState<number>(0);
@@ -22,11 +22,20 @@ function App() {
     }
   }, [canvasRef])
 
+  const onSave = useCallback(() => {
+    const img: HTMLAnchorElement = document.createElement('a');
+    img.download = 'meme.png';
+    const data: string | undefined = canvasRef?.current?.toDataURL();
+    img.href = data || "";
+    img.click()
+  }, [canvasRef])
+
   useEffect(() => {
     onClear();
 
     const image: HTMLImageElement = new Image();
     image.src = url;
+    image.crossOrigin = 'anonymous'
     let absoluteAngle = Math.abs(angle);
     image.onload = () => {
 
@@ -119,7 +128,7 @@ function App() {
           </button>
         </div>
 
-        <label style={{ justifyContent: 'space-around'}}>
+        <label style={{ justifyContent: 'space-around', margin: '1rem' }}>
           Font Color:
           <Color setColor={setColor} />
         </label>
@@ -142,6 +151,10 @@ function App() {
               value={lowerText}
             />
           </label>
+        </div>
+
+        <div className="row">
+          <button type="button" onClick={onSave}>Save</button>
         </div>
 
       </form>
