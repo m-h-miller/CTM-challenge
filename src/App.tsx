@@ -1,31 +1,31 @@
-import React from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import Color from './Color';
 import './App.css';
 
 function App() {
-  const canvasRef = React.useRef<HTMLCanvasElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const [url, setUrl] = React.useState<string>("https://media1.popsugar-assets.com/files/thumbor/YX-2J4ndcYxiFDtqpJ0Ed8NkMfM/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2014/08/08/878/n/1922507/9ed5cdef48c5ef69_thumb_temp_image32304521407524949/i/Funny-Cat-GIFs.jpg");
-  const [height, setHeight] = React.useState<number>(500);
-  const [width, setWidth] = React.useState<number>(500);
-  const [angle, setAngle] = React.useState<number>(0);
-  const [isReversed, setIsReversed] = React.useState<boolean>(false);
-  const [upperText, setUpperText] = React.useState<string>("");
-  const [lowerText, setLowerText] = React.useState<string>("");
-  const [color, setColor] = React.useState<string>("");
+  const [url, setUrl] = useState<string>("https://media1.popsugar-assets.com/files/thumbor/YX-2J4ndcYxiFDtqpJ0Ed8NkMfM/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2014/08/08/878/n/1922507/9ed5cdef48c5ef69_thumb_temp_image32304521407524949/i/Funny-Cat-GIFs.jpg");
+  const [height, setHeight] = useState<number>(500);
+  const [width, setWidth] = useState<number>(500);
+  const [angle, setAngle] = useState<number>(0);
+  const [isReversed, setIsReversed] = useState<boolean>(false);
+  const [upperText, setUpperText] = useState<string>("");
+  const [lowerText, setLowerText] = useState<string>("");
+  const [color, setColor] = useState<string>("");
 
-  const onClear = () => {
+  const onClear = useCallback(() => {
     const canvas: HTMLCanvasElement | null = canvasRef.current;
     if (canvas) {
       const canvasContext = canvas.getContext("2d");
       canvasContext?.clearRect(0, 0, canvas.width, canvas.height);
     }
-  }
+  }, [canvasRef])
 
-  React.useEffect(() => {
+  useEffect(() => {
     onClear();
 
-    const image = new Image();
+    const image: HTMLImageElement = new Image();
     image.src = url;
     let absoluteAngle = Math.abs(angle);
     image.onload = () => {
@@ -39,7 +39,7 @@ function App() {
         let imageHeight: number = height || image.height;
   
         canvasContext?.translate(canvas.width , canvas.height );
-        canvasContext?.rotate(absoluteAngle *Math.PI / 180);
+        canvasContext?.rotate(absoluteAngle * Math.PI / 180);
   
         if (absoluteAngle === 90) {
           imageWidth *= -1
@@ -67,7 +67,11 @@ function App() {
           canvasContext.strokeStyle = 'black'
           canvasContext.textBaseline = 'top';
           canvasContext.textAlign = 'center'
+          
+          canvasContext.strokeText(upperText, Math.abs(imageWidth / 2), Math.abs(imageHeight / 9))
           canvasContext.fillText(upperText, Math.abs(imageWidth / 2), Math.abs(imageHeight / 9))
+
+          canvasContext.strokeText(lowerText, Math.abs(imageWidth / 2), Math.abs(imageHeight - (imageHeight / 4.5)))
           canvasContext.fillText(lowerText, Math.abs(imageWidth / 2), Math.abs(imageHeight - (imageHeight / 4.5)))
         }
       }
