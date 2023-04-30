@@ -1,5 +1,6 @@
 import React from 'react';
 import { SketchPicker } from 'react-color';
+import './Color.css';
 
 interface ColorPickerButtonProps {
   setColor: (color: string) => void
@@ -13,19 +14,10 @@ const ColorPickerButton = (props: ColorPickerButtonProps) => {
     <div>
         <button type="button" onClick={toggleIsOpen}>Pick Color</button>
         {isOpen ? (
-          <div style={{
-            position: 'absolute',
-            zIndex: '2',
-          }}>
-            <div style={{ 
-              position: 'fixed',
-              top: '0px',
-              bottom: '0px',
-              right: '0px',
-              left: '0px',
-            }} />
+          <div className="pop-over">
+            <div className="cover" />
             <SketchPicker
-                onChangeComplete={color => props.setColor(color.hex)}
+              onChangeComplete={color => props.setColor(color.hex)}
             />
           </div>
 
