@@ -22,20 +22,11 @@ function App() {
     }
   }, [canvasRef])
 
-  const onSave = useCallback(() => {
-    const img: HTMLAnchorElement = document.createElement('a');
-    img.download = 'meme.png';
-    const data: string | undefined = canvasRef?.current?.toDataURL();
-    img.href = data || "";
-    img.click()
-  }, [canvasRef])
-
   useEffect(() => {
     onClear();
 
     const image: HTMLImageElement = new Image();
     image.src = url;
-    image.crossOrigin = 'anonymous'
     let absoluteAngle = Math.abs(angle);
     image.onload = () => {
 
@@ -157,10 +148,6 @@ function App() {
               value={lowerText}
             />
           </label>
-        </div>
-
-        <div className="row">
-          <button type="button" onClick={onSave}>Save</button>
         </div>
 
       </form>
