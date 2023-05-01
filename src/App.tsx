@@ -12,7 +12,7 @@ function App() {
   const [isReversed, setIsReversed] = useState<boolean>(false);
   const [upperText, setUpperText] = useState<string>("");
   const [lowerText, setLowerText] = useState<string>("");
-  const [color, setColor] = useState<string>("");
+  const [color, setColor] = useState<string>("#FFF");
 
   const onClear = useCallback(() => {
     const canvas: HTMLCanvasElement | null = canvasRef.current;
@@ -127,7 +127,7 @@ function App() {
 
         <label style={{ justifyContent: 'space-around', margin: '1rem' }}>
           Font Color:
-          <Color setColor={setColor} />
+          <Color setColor={setColor} color={color} />
         </label>
 
         <div className="row">

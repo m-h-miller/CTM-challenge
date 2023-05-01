@@ -3,7 +3,8 @@ import { SketchPicker } from 'react-color';
 import './Color.css';
 
 interface ColorPickerButtonProps {
-  setColor: (color: string) => void
+  setColor: (color: string) => void,
+  color: string,
 }
 
 const ColorPickerButton = (props: ColorPickerButtonProps) => {
@@ -17,6 +18,7 @@ const ColorPickerButton = (props: ColorPickerButtonProps) => {
           <div className="pop-over">
             <div className="cover" />
             <SketchPicker
+              color={props.color}
               onChangeComplete={color => props.setColor(color.hex)}
             />
           </div>
