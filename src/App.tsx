@@ -47,27 +47,33 @@ function App() {
         let imageWidth: number = width || image.width;
         let imageHeight: number = height || image.height;
   
-        canvasContext?.translate(canvas.width , canvas.height );
         canvasContext?.rotate(absoluteAngle * Math.PI / 180);
   
         if (absoluteAngle === 90) {
           imageWidth *= -1
-  
+        }
+        if (absoluteAngle === 180) {
+          imageHeight *= -1
+          imageWidth *= -1
         }
         if (absoluteAngle === 270) {
           imageHeight *= -1
         }
-        if (absoluteAngle === 0) {
-          imageHeight *= -1
-          imageWidth *= -1
-        }
   
         if (isReversed) {
           canvasContext?.scale(-1, 1);
-          imageWidth *= -1
+          if (absoluteAngle === 90 || absoluteAngle === 270) {
+            imageHeight *= -1
+          } else {
+            imageWidth *= -1
+          }
         }
   
-        canvasContext?.drawImage(image, 0, 0, imageWidth, imageHeight);
+        if (absoluteAngle === 90 || absoluteAngle === 270) {
+          canvasContext?.drawImage(image, 0, 0, imageHeight, imageWidth);
+        } else {
+          canvasContext?.drawImage(image, 0, 0, imageWidth, imageHeight);
+        }
         canvasContext?.restore();
   
         if (canvasContext) {
