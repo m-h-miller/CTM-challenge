@@ -73,4 +73,7 @@ input, textarea {
 
 canvas { 
   margin: 1rem;
+  max-height: 1000px;
+  max-width: 1000px;
+  border: 1px solid black;
 }
