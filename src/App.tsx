@@ -77,7 +77,7 @@ function App() {
         canvasContext?.restore();
   
         if (canvasContext) {
-          canvasContext.font = 'Bold 40px Arial';
+          canvasContext.font = 'Bold 40px Impact';
           canvasContext.fillStyle = color
           canvasContext.strokeStyle = 'black'
           canvasContext.textBaseline = 'top';
