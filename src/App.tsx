@@ -91,12 +91,14 @@ function App() {
       </header>
 
       <form>
-        <label>
-          Image Source:
-          <input onChange={e => setUrl(e.target.value)} value={url} />
-        </label>
+        <div className="row">
+          <label>
+            Image Source:
+            <input onChange={e => setUrl(e.target.value)} value={url} />
+          </label>
+        </div>
 
-        <div  className="row">
+        <div className="row">
           <label className="col">
             Height:
             <input type="number" onChange={e => setHeight(parseInt(e.target.value))} value={height} />
@@ -110,7 +112,7 @@ function App() {
 
         <canvas id="canvas" ref={canvasRef} width={width} height={height} />
 
-        <div className="buttons">
+        <div className="buttons row">
           <button
             type="button" 
             onClick={() => setAngle((angle - 90) % 360)}
